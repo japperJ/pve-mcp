@@ -1,0 +1,24 @@
+# Local credentials and runtime state
+config.json
+proxmox-config/config.json
+*.sqlite3
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+
+# Secrets and keys
+*.key
+*.pem
+known_hosts
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

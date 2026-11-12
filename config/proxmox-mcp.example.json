@@ -1,0 +1,94 @@
+{
+  "targets": {
+    "pve": {
+      "host": "pve.example.com",
+      "port": 8006,
+      "verify_ssl": false,
+      "allow_insecure_tls": true,
+      "service": "PVE",
+      "auth": {
+        "user": "mcp-api@pve",
+        "token_name": "mcp-token",
+        "token_value": "REPLACE_WITH_PVE_TOKEN_SECRET"
+      },
+      "ssh": {
+        "user": "mcp-agent",
+        "port": 22,
+        "key_file": "C:/Users/<you>/.ssh/proxmox_mcp",
+        "use_sudo": true,
+        "known_hosts_file": "C:/Users/<you>/.ssh/known_hosts",
+        "strict_host_key_checking": true,
+        "host_overrides": {
+          "pve": "pve.example.com"
+        },
+        "allow_node_commands": false
+      },
+      "command_policy": {
+        "mode": "audit_only",
+        "allow_patterns": [],
+        "deny_patterns": [
+          "(^|\\s)rm\\s+-rf(\\s|$)",
+          ":\\(\\)\\{:\\|:\\&\\};:"
+        ],
+        "require_approval_token": false,
+        "high_risk_mode": "audit_only"
+      }
+    },
+    "pve-host": {
+      "host": "pve.example.com",
+      "port": 8006,
+      "verify_ssl": false,
+      "allow_insecure_tls": true,
+      "service": "PVE",
+      "auth": {
+        "user": "mcp-api@pve",
+        "token_name": "mcp-token",
+        "token_value": "REPLACE_WITH_PVE_TOKEN_SECRET"
+      },
+      "ssh": {
+        "user": "mcp-agent",
+        "port": 22,
+        "key_file": "C:/Users/<you>/.ssh/proxmox_mcp",
+        "use_sudo": false,
+        "known_hosts_file": "C:/Users/<you>/.ssh/known_hosts",
+        "strict_host_key_checking": true,
+        "host_overrides": {
+          "pve": "pve.example.com"
+        },
+        "allow_node_commands": true
+      },
+      "command_policy": {
+        "mode": "allowlist",
+        "allow_patterns": [
+          "uptime",
+          "id",
+          "df -h",
+          "free -h",
+          "cat /etc/os-release",
+          "systemctl status [A-Za-z0-9_.@-]+",
+          "journalctl -u [A-Za-z0-9_.@-]+ -n [0-9]+"
+        ],
+        "deny_patterns": [
+          "(^|\\s)rm\\s+-rf(\\s|$)",
+          ":\\(\\)\\{:\\|:\\&\\};:"
+        ],
+        "require_approval_token": false,
+        "high_risk_mode": "audit_only"
+      }
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "C:/Users/<you>/.config/proxmox-mcp/proxmox-mcp.log"
+  },
+  "mcp": {
+    "transport": "STDIO"
+  },
+  "security": {
+    "dev_mode": false
+  },
+  "jobs": {
+    "sqlite_path": "C:/Users/<you>/.config/proxmox-mcp/proxmox-jobs.sqlite3",
+    "poll_cache_ttl": 1
+  }
+}
